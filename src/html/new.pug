@@ -1,0 +1,34 @@
+doctype html
+html(lang='en')
+    head
+        link(rel='stylesheet' href='../css/main.css')
+        link(rel='stylesheet' href='../css/new.css')
+    body
+        .flex-column.flex-center.full-height
+            form
+                table
+                    tr
+                        th Grid Size
+                        td
+                            input(type='number' value=32 min=1 required)
+                        td px
+                    tr
+                        th Rows
+                        td(colspan='2')
+                            input(type='number' value=15 min=1 required)
+                    tr
+                        th Columns
+                        td(colspan='2')
+                            input(type='number' value=30 min=1 required)
+                button(type='button' onclick='sendForm()') Create
+                .clear
+        script.
+            var ipc = require('electron').ipcRenderer;
+            function sendForm() {
+                var inputs = document.querySelectorAll('input');
+                ipc.send('NEW_FILE', {
+                    grid: inputs[0].value,
+                    row: inputs[1].value,
+                    col: inputs[2].value,
+                });
+            }

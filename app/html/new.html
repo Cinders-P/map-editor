@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="en"><head><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="../css/new.css"></head><body><div class="flex-column flex-center full-height"><form><table><tr><th>Grid Size</th><td><input type="number" value="32" min="1" required></td><td>px</td></tr><tr><th>Rows</th><td colspan="2"><input type="number" value="15" min="1" required></td></tr><tr><th>Columns</th><td colspan="2"><input type="number" value="30" min="1" required></td></tr></table><button type="button" onclick="sendForm()">Create</button><div class="clear"></div></form></div><script>var ipc = require('electron').ipcRenderer;
+function sendForm() {
+    var inputs = document.querySelectorAll('input');
+    ipc.send('NEW_FILE', {
+        grid: inputs[0].value,
+        row: inputs[1].value,
+        col: inputs[2].value,
+    });
+}</script></body></html>
